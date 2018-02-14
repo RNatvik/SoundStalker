@@ -4,8 +4,8 @@ public class Communications {
 
     private double[] communicationsArray;
 
-    public Communications() {
-        this.getSerialData();
+    public Communications(int arraySize) {
+        this.communicationsArray = new double[arraySize];
     }
 
     public void getSerialData() {
