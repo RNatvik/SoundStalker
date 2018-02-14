@@ -24,4 +24,8 @@ public class Sensors {
     public boolean isSerial() {
         return serial;
     }
+
+    public boolean isIc2() {
+        return ic2;
+    }
 }
