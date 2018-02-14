@@ -1,11 +1,11 @@
-package com.SoudStalker;
+package com;
 
 public class Communications {
 
-    private double[] communicationsArray;
+    static int[] communicationsArray;
 
     public Communications(int arraySize) {
-        this.communicationsArray = new double[arraySize];
+        this.communicationsArray = new int[arraySize];
     }
 
     public void getSerialData() {
@@ -18,7 +18,7 @@ public class Communications {
         this.communicationsArray = serialInDouble;
     }
 
-    public double getDataByIndex(int index) {
+    public int[] getDataByIndex(int index) {
         return communicationsArray[index];
     }
 
