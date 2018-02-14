@@ -1,4 +1,4 @@
-package com.SoudStalker;
+package com;
 
 public class Communications {
 
