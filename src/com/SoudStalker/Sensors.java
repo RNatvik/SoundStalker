@@ -17,6 +17,10 @@ public class Sensors {
         this.communicationIndex = communicationIndex;
     }
 
+    public Sensors(boolean ic2) {
+        this.ic2 = ic2;
+    }
+
     public boolean isSerial() {
         return serial;
     }
