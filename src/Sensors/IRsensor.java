@@ -13,4 +13,8 @@ public class IRsensor extends Sensors {
     public IRsensor(boolean ic2) {
         super(ic2);
     }
+
+    public int getAnalogValue () {
+        return Communications.getDataByIndex(this.communicationIndex);
+    }
 }

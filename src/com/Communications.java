@@ -5,20 +5,20 @@ public class Communications {
     static int[] communicationsArray;
 
     public Communications(int arraySize) {
-        this.communicationsArray = new int[arraySize];
+        communicationsArray = new int[arraySize];
     }
 
-    public void getSerialData() {
-        String serialIn = "14.5,23.7,16.3,19.5";
+    public static void updateSerialData() {
+        String serialIn = "14,23,16,19";
         String[] parts = serialIn.split(",");
-        double[] serialInDouble = new double[parts.length];
+        int[] serialInDouble = new int[parts.length];
         for (int i = 0; i < parts.length; i ++){
-            serialInDouble[i] = Double.parseDouble(parts[i]);
+            serialInDouble[i] = Integer.parseInt(parts[i]);
         }
-        this.communicationsArray = serialInDouble;
+        communicationsArray = serialInDouble;
     }
 
-    public int[] getDataByIndex(int index) {
+    public static int getDataByIndex(int index) {
         return communicationsArray[index];
     }
 
