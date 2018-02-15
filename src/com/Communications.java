@@ -23,7 +23,7 @@ public class Communications {
         sensorValues = new HashMap<>();
     }
 
-    public int getSensorValue(String sensor) {
+    public static int getSensorValue(String sensor) {
         return sensorValues.get(sensor);
     }
 
@@ -31,11 +31,14 @@ public class Communications {
         System.out.println(sensorValues);
     }
 
-    public static void update() {
+    public static boolean update() {
+        boolean dataUpdated = false;
         char[] charArray = getInputStream();
         if (charArray[0] >= 1) {
             parseToInt(charArray);
+            dataUpdated = true;
         }
+        return dataUpdated;
     }
 
     private static void parseToInt(char[] charArray) {
