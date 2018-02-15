@@ -8,11 +8,11 @@ import com.pi4j.io.gpio.event.GpioPinListenerDigital;
  */
 public class BatteryManager {
 
-    private double batterTemprature;           // Temperature in C'
+    private double batteryTemperature;           // Temperature in C'
     private double batteryVolt;          // Battery volt in V
 
     private double temperatureThreshold;
-    private double batteryDepleatedThreshold;
+    private double batteryDepletedThreshold;
     private double batteryFullThreshold;
 
     private int amplifierState;
@@ -32,13 +32,13 @@ public class BatteryManager {
      * Initialises the GpioController and all the needed gpio pins.
       */
     public BatteryManager() {
-        this.batterTemprature = 0;
+        this.batteryTemperature = 0;
         this.batteryVolt = 0;
         this.amplifierState = 0;
         this.motorControllerState = 0;
 
         this.temperatureThreshold = 30;
-        this.batteryDepleatedThreshold = 3;
+        this.batteryDepletedThreshold = 3;
         this.batteryFullThreshold = 4.2;
 
         this.gpio = GpioFactory.getInstance();
@@ -72,7 +72,7 @@ public class BatteryManager {
     public void checkConcision() {
         this.update();
 
-        if (this.batterTemprature > this.temperatureThreshold) {
+        if (this.batteryTemperature > this.temperatureThreshold) {
             // Shuts down the power if the battery overheats.
             this.realy1.low();
             this.realy2.low();
@@ -80,7 +80,7 @@ public class BatteryManager {
             this.realy4.low();
 
         } else {
-            if (this.batteryVolt <= this.batteryDepleatedThreshold) { // Battery is depleted.
+            if (this.batteryVolt <= this.batteryDepletedThreshold) { // Battery is depleted.
                 // Shuts down everything except charging.
                 this.realy1.low();
                 this.realy2.low();
@@ -118,7 +118,7 @@ public class BatteryManager {
      */
     private void update() {
         this.batteryVolt = Communications.getSensorValue("batteryVoltage") * 0.0048875;
-        this.batterTemprature = Communications.getSensorValue("batteryTemperature") / 5.39;
+        this.batteryTemperature = Communications.getSensorValue("batteryTemperature") / 5.39;
     }
 
 }
