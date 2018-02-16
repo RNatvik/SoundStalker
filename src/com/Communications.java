@@ -1,36 +1,53 @@
 package com;
 
 import com.fazecast.jSerialComm.*;
-
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 
+/**
+ * A class for handling communication between a two units connected by USB.
+ */
 public class Communications {
 
     private static SerialPort comPort;
     private static InputStream in;
     private static HashMap<String, Integer> sensorValues;
 
-    public Communications() {
-    }
 
-    public static void setup() {
-        comPort = SerialPort.getCommPorts()[0];
+    /**
+     * Method for setting up the whole Communication class.
+     * This method is required to run ONCE before using any of the Class' other methods.
+     * @param comPortIndex the index the wanted comPort is located at in "SerialPort.getCommPorts()"'s returned array.
+     */
+    public static void setup(int comPortIndex) {
+        comPort = SerialPort.getCommPorts()[comPortIndex];
         comPort.openPort();
         comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 100, 0);
         in = comPort.getInputStream();
         sensorValues = new HashMap<>();
     }
 
+    /**
+     * Method for getting the value associated with a spesific sensor.
+     * @param sensor HashMap key as String.
+     * @return the HashMap's associated value with given parameter key.
+     */
     public static int getSensorValue(String sensor) {
         return sensorValues.get(sensor);
     }
 
+    /**
+     * Method for printing values located in HashMap sensorValues to System.out
+     * Used for troubleshooting.
+     */
     public static void printHashMap() {
         System.out.println(sensorValues);
     }
 
+    /**
+     * Method for updating HashMap values
+     * @return true if update successful, false otherwise.
+     */
     public static boolean update() {
         boolean dataUpdated = false;
         char[] charArray = getInputStream();
@@ -41,6 +58,11 @@ public class Communications {
         return dataUpdated;
     }
 
+    /**
+     * Takes a charArray and splits it into component integer values
+     * then maps them into HashMap sensorValues at predetermined keys.
+     * @param charArray a charArray with 6 separate values as char, separated with "\r\n"
+     */
     private static void parseToInt(char[] charArray) {
         try {
             String string = String.copyValueOf(charArray).trim();
@@ -56,6 +78,11 @@ public class Communications {
         }
     }
 
+    /**
+     * Method for getting new input from an external unit as a char[]
+     * Input stream must be started with an 'A', and ended with a 'B'
+     * @return
+     */
     private static char[] getInputStream() {
         char[] charArray = new char[50];
         try {
@@ -80,55 +107,3 @@ public class Communications {
         return charArray;
     }
 }
-
-
-/**
- * try
- * <p>
- * {
- * <p>
- * if (in.available() > 0) {
- * <p>
- * } else {
- * <p>
- * }
- * <p>
- * while (true) {
- * long startTime = System.currentTimeMillis();
- * // System.out.println(in.read());
- * <p>
- * int tempInt = in.read();
- * char[] charArray = new char[4];
- * if (tempInt == 10) {
- * int i = 0;
- * while (tempInt != 13) {
- * int tempInt2 = in.read();
- * if (tempInt2 == 13) {
- * tempInt = tempInt2;
- * } else {
- * charArray[i] = (char) tempInt2;
- * tempInt = tempInt2;
- * i++;
- * }
- * }
- * String string = String.copyValueOf(charArray).trim();
- * int yolo = Integer.parseInt(string);
- * System.out.println("Yolo: " + yolo);
- * System.out.println();
- * }
- * in.close();
- * <p>
- * long endTime = System.currentTimeMillis();
- * System.out.println(endTime - startTime + " to finish ");
- * }
- * } catch(
- * Exception e)
- * <p>
- * {
- * e.printStackTrace();
- * }
- * comPort.closePort();
- * <p>
- * <p>
- * }
- */

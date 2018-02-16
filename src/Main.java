@@ -9,6 +9,7 @@ public class Main {
 
         BatteryManager batteryManager = new BatteryManager();
         Communications.setup();
+        Communications communications = new Communications();
         int i = 0;
         Thread.sleep(2000);
 
