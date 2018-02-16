@@ -69,7 +69,7 @@ public class BatteryManager {
      * and tacks necessary action to protect the battery.
      * Has control over the Sound stalkers button fore turning on/off parts off the device.
      */
-    public void checkConcision() {
+    public void checkCondition() {
         this.update();
 
         if (this.batteryTemperature > this.temperatureThreshold) {

@@ -51,7 +51,7 @@ public class Communications {
     public static boolean update() {
         boolean dataUpdated = false;
         char[] charArray = getInputStream();
-        if (charArray[0] >= 1) {
+        if (charArray[0] > 0) {
             parseToInt(charArray);
             dataUpdated = true;
         }

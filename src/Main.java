@@ -1,17 +1,15 @@
-import Sensors.IRsensor;
 import com.Communications;
-
-import java.io.IOException;
 
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
-        BatteryManager batteryManager = new BatteryManager();
-        Communications.setup();
+       BatteryManager batteryManager = new BatteryManager();
+        Communications.setup(0);
         Communications communications = new Communications();
+        MotorController motorController = new MotorController(0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 500);
+        Thread.sleep(2000); //mulig unødvendig tipp topp tommel opp.
         int i = 0;
-        Thread.sleep(2000);
 
         while (true) {
             boolean dataUpdated = Communications.update();
@@ -20,9 +18,11 @@ public class Main {
             i++;
 
             if (dataUpdated) {
-                batteryManager.checkConcision();
+                batteryManager.checkCondition();
+                motorController.doYourThing();
             }
         }
+
 
     }
 }
