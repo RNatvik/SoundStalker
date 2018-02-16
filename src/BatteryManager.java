@@ -52,8 +52,8 @@ public class BatteryManager {
         this.realy3.setShutdownOptions(true, PinState.LOW);
         this.realy4.setShutdownOptions(true, PinState.LOW);
 
-        this.amplifierButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_19, PinPullResistance.PULL_UP);
-        this.motorControllerButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_26, PinPullResistance.PULL_UP);
+        this.amplifierButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_17, PinPullResistance.PULL_UP);
+        this.motorControllerButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_27, PinPullResistance.PULL_UP);
         this.amplifierButton.setShutdownOptions(true);
         this.motorControllerButton.setShutdownOptions(true);
 
