@@ -3,7 +3,7 @@ import com.pi4j.io.gpio.*;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
 /**
- * This class controll all power management on the Sound stalker.
+ * This class controls all power management on the Sound stalker.
  * its complete with battery protective feathers fore battery overheat end generel batery protection.
  */
 public class BatteryManager {
@@ -18,18 +18,18 @@ public class BatteryManager {
     private int amplifierState;
     private int motorControllerState;
 
-    private final GpioController gpio;
+    private final GpioController GPIO;
     // Pins for the relay.
-    private final GpioPinDigitalOutput realy1;
-    private final GpioPinDigitalOutput realy2;
-    private final GpioPinDigitalOutput realy3;
-    private final GpioPinDigitalOutput realy4;
+    private final GpioPinDigitalOutput RELAY1;
+    private final GpioPinDigitalOutput RELAY2;
+    private final GpioPinDigitalOutput RELAY3;
+    private final GpioPinDigitalOutput RELAY4;
     private final GpioPinDigitalInput amplifierButton;
     private final GpioPinDigitalInput motorControllerButton;
 
     /**
      * Constructs the object.
-     * Initialises the GpioController and all the needed gpio pins.
+     * Initialises the GpioController and all the needed GPIO pins.
       */
     public BatteryManager() {
         this.batteryTemperature = 0;
@@ -41,19 +41,19 @@ public class BatteryManager {
         this.batteryDepletedThreshold = 3;
         this.batteryFullThreshold = 4.2;
 
-        this.gpio = GpioFactory.getInstance();
+        this.GPIO = GpioFactory.getInstance();
 
-        this.realy1 = this.gpio.provisionDigitalOutputPin(RaspiPin.GPIO_05, "Amplifier", PinState.HIGH);
-        this.realy2 = this.gpio.provisionDigitalOutputPin(RaspiPin.GPIO_06, "Bluetooth aluino", PinState.HIGH);
-        this.realy3 = this.gpio.provisionDigitalOutputPin(RaspiPin.GPIO_13, "Motor controller", PinState.HIGH);
-        this.realy4 = this.gpio.provisionDigitalOutputPin(RaspiPin.GPIO_19, "Charge", PinState.HIGH);
-        this.realy1.setShutdownOptions(true, PinState.LOW);
-        this.realy2.setShutdownOptions(true, PinState.LOW);
-        this.realy3.setShutdownOptions(true, PinState.LOW);
-        this.realy4.setShutdownOptions(true, PinState.LOW);
+        this.RELAY1 = this.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_05, "Amplifier", PinState.HIGH);
+        this.RELAY2 = this.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_06, "Bluetooth aluino", PinState.HIGH);
+        this.RELAY3 = this.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_13, "Motor controller", PinState.HIGH);
+        this.RELAY4 = this.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_19, "Charge", PinState.HIGH);
+        this.RELAY1.setShutdownOptions(true, PinState.LOW);
+        this.RELAY2.setShutdownOptions(true, PinState.LOW);
+        this.RELAY3.setShutdownOptions(true, PinState.LOW);
+        this.RELAY4.setShutdownOptions(true, PinState.LOW);
 
-        this.amplifierButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_17, PinPullResistance.PULL_UP);
-        this.motorControllerButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_27, PinPullResistance.PULL_UP);
+        this.amplifierButton = GPIO.provisionDigitalInputPin(RaspiPin.GPIO_17, PinPullResistance.PULL_UP);
+        this.motorControllerButton = GPIO.provisionDigitalInputPin(RaspiPin.GPIO_27, PinPullResistance.PULL_UP);
         this.amplifierButton.setShutdownOptions(true);
         this.motorControllerButton.setShutdownOptions(true);
 
@@ -74,40 +74,40 @@ public class BatteryManager {
 
         if (this.batteryTemperature > this.temperatureThreshold) {
             // Shuts down the power if the battery overheats.
-            this.realy1.low();
-            this.realy2.low();
-            this.realy3.low();
-            this.realy4.low();
+            this.RELAY1.low();
+            this.RELAY2.low();
+            this.RELAY3.low();
+            this.RELAY4.low();
 
         } else {
             if (this.batteryVolt <= this.batteryDepletedThreshold) { // Battery is depleted.
                 // Shuts down everything except charging.
-                this.realy1.low();
-                this.realy2.low();
-                this.realy3.low();
+                this.RELAY1.low();
+                this.RELAY2.low();
+                this.RELAY3.low();
 
                 }else {
                 // Turns on and off the amplifier/motor controller if the buttons are pressed
                     if (this.amplifierState == 1) {
-                        this.realy1.high();
-                        this.realy2.high();
+                        this.RELAY1.high();
+                        this.RELAY2.high();
 
                     }else {
-                        this.realy1.low();
-                        this.realy2.low();
+                        this.RELAY1.low();
+                        this.RELAY2.low();
                     }
                     if (this.motorControllerState == 1) {
-                        this.realy3.high();
+                        this.RELAY3.high();
 
                     }else {
-                        this.realy3.low();
+                        this.RELAY3.low();
                 }
             }
             if (this.batteryVolt >= this.batteryFullThreshold) {
-                this.realy4.low();  // Turns off charging wen the battery is full.
+                this.RELAY4.low();  // Turns off charging wen the battery is full.
 
             }else {
-                this.realy4.high();
+                this.RELAY4.high();
             }
         }
 
