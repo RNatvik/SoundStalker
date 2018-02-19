@@ -1,5 +1,3 @@
-package com;
-
 import com.fazecast.jSerialComm.*;
 import java.io.InputStream;
 import java.util.HashMap;

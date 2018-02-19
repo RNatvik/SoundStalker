@@ -1,4 +1,3 @@
-package Sensors;
 
 
 public class Sensors {
