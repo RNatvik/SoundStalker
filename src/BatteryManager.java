@@ -1,4 +1,3 @@
-import com.Communications;
 import com.pi4j.io.gpio.*;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
