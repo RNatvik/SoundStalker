@@ -57,6 +57,7 @@ public class Main {
         }
         batteryManager.shutdown();
         motorController.shutdown();
+        System.out.println("Shutdown 2");
 
     }
 }
