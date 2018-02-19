@@ -9,7 +9,7 @@ public class Main {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             shutdown = true;
             System.out.println();
-            System.out.println("Shutdown");
+            System.out.println("Shutdown hook");
         }));
 
         System.out.println("hello");
@@ -54,10 +54,13 @@ public class Main {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            batteryManager.shutdown();
+            motorController.shutdown();
+            System.out.println("Shutdown 2");
         }
         batteryManager.shutdown();
         motorController.shutdown();
-        System.out.println("Shutdown 2");
+        System.out.println("Shutdown 3");
 
     }
 }
