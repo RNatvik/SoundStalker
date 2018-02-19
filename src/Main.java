@@ -21,7 +21,7 @@ public class Main {
 
 
 
-            Communications.setup(0);
+            Communications.setup(1);
             System.out.println("setup complet");
             Thread.sleep(2000); //mulig unødvendig tipp topp tommel opp.
             System.out.println("sleep over");
