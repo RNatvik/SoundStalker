@@ -8,12 +8,13 @@ public class Main {
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             shutdown = true;
+            System.out.println();
             System.out.println("Shutdown");
         }));
 
         System.out.println("hello");
-        //BatteryManager batteryManager = new BatteryManager();
-        //MotorController motorController = new MotorController(0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 500);
+        BatteryManager batteryManager = new BatteryManager();
+        MotorController motorController = new MotorController(0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 500);
         System.out.println("motorcontroller setup done");
 
         try {
@@ -41,8 +42,8 @@ public class Main {
 
 
                 if (dataUpdated) {
-                    //batteryManager.checkCondition();
-                    //motorController.doYourThing();
+                    batteryManager.checkCondition();
+                    motorController.doYourThing();
                     Communications.printHashMap();
                     slider.setValue(Communications.getSensorValue("irSensorR"));
                     System.out.println();
@@ -54,8 +55,8 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //batteryManager.shutdown();
-        //motorController.shutdown();
+        batteryManager.shutdown();
+        motorController.shutdown();
 
     }
 }
