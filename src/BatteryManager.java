@@ -42,6 +42,8 @@ public class BatteryManager {
         this.batteryFullThreshold = 4.2;
 
         this.GPIO = GpioFactory.getInstance();
+        this.GPIO.shutdown();
+        this.GPIO.unprovisionPin();
 
         this.RELAY1 = this.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_05, "Amplifier", PinState.HIGH);
         this.RELAY2 = this.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_06, "Bluetooth aluino", PinState.HIGH);

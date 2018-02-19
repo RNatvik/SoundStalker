@@ -8,10 +8,10 @@ public class Main {
 
         System.out.println("hello");
 
-        BatteryManager batteryManager = new BatteryManager();
+        //BatteryManager batteryManager = new BatteryManager();
         Communications.setup(0);
         System.out.println("setup complet");
-        MotorController motorController = new MotorController(0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 500);
+        //MotorController motorController = new MotorController(0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 500);
         System.out.println("motorcontroller setup done");
         Thread.sleep(2000); //mulig unødvendig tipp topp tommel opp.
         System.out.println("sleep over");
@@ -32,8 +32,8 @@ public class Main {
 
 
             if (dataUpdated) {
-                batteryManager.checkCondition();
-                motorController.doYourThing();
+                //batteryManager.checkCondition();
+                //motorController.doYourThing();
                 Communications.printHashMap();
                 slider.setValue(Communications.getSensorValue("irSensorR"));
                 System.out.println();
