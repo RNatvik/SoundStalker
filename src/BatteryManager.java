@@ -122,4 +122,8 @@ public class BatteryManager {
         this.batteryTemperature = Communications.getSensorValue("batteryTemperature") / 5.39;
     }
 
+    public void shutdown() {
+        GPIO.shutdown();
+    }
+
 }

@@ -132,4 +132,8 @@ public class MotorController {
         this.leftSensorStrength = Communications.getSensorValue("irSensorL");
         this.rightSensorStrength = Communications.getSensorValue("irSensorR");
     }
+
+    public void shutdown() {
+        GPIO.shutdown();
+    }
 }
